@@ -47,59 +47,34 @@ def get_intevals(lst: list, pupil: list):
         if i % 2 == 0:
             start = v
             end = lst[i+1]
-
-            # print(f'Интервал присутствия преподавателя на занятии:\n{start} - {end}')
             
             for pi, pv in enumerate(pupil):
                 if pi % 2 == 0:
                     pupil_start = datetime.fromtimestamp(pv)
                     pupil_end = datetime.fromtimestamp(pupil[pi+1])
 
-                    # print(f'Ученик: {pupil_start} - {pupil_end}')
-
                     if start <= pupil_start and pupil_end <= end:
-                        # print('И препод и ученик на занятии')
-                        # print(f'Препод: {start} - {end}')
-                        # print(f'ученик: {pupil_start} - {pupil_end}')
-                        # print(f'просидел: {pupil_end - pupil_start}\n')
-
                         if not total_time:
                             total_time = pupil_end - pupil_start
                         else:
                             total_time += pupil_end - pupil_start
-
                     elif start > pupil_start and start <= pupil_end <= end:
-                    #     print(f'Ученик пришел раньше препода\nПрепод: {start} - {end}\nученик: {pupil_start} - {pupil_end}')
-                    #     print(f'Время лекции: {start} - {pupil_end}')
-                        # print(f'просидел: {pupil_end - start}\n')
-
                         if not total_time:
                             total_time = pupil_end - start
                         else:
                             total_time += pupil_end - start
-
                     elif start <= pupil_start < end and pupil_end > end:
-                    #     print('Ученик задержался без препода')
-                    #     print(f'Время занятия: {start} - {end}\nученик сидит с: {pupil_start} до {pupil_end}')
-                        # print(f'просидел: {end - pupil_start}\n')
-
                         if not total_time:
                             total_time = end - pupil_start
                         else:
                             total_time += end - pupil_start
-
                     elif start > pupil_start and pupil_end > end:
-                        # print(f'ученик пришел раньше и ушел позже: {pupil_start} - {pupil_end}')
-                        # print(f'Время на занятии: {start} - {end}')
-                        # print(f'просидел: {end - start}\n')
-
                         if not total_time:
                             total_time = end - start
                         else:
                             total_time += end - start
 
     return int(total_time.total_seconds())
-
 
 
 def appearance(intervals: dict):
@@ -111,9 +86,6 @@ def appearance(intervals: dict):
         if i % 2 == 0:
             lesson_start = datetime.fromtimestamp(v)
             lesson_end = datetime.fromtimestamp(lesson_time[i+1])
-
-            # print(f'\nЗанятие {lesson_start} - {lesson_end}\n')
-
             # время пресутствия преподавателя на занятии
             tutor_lesson_time = []
 
@@ -123,17 +95,12 @@ def appearance(intervals: dict):
                     tutor_end = datetime.fromtimestamp(tutor_time[ij+1])
 
                     if lesson_start <= tutor_start and tutor_end <= lesson_end:
-                        # print(f'Преподаватель весь интервал на занятии: {tutor_start} - {tutor_end}\n')
                         tutor_lesson_time.append(tutor_start)
                         tutor_lesson_time.append(tutor_end)
                     elif lesson_start > tutor_start and lesson_start < tutor_end <= lesson_end:
-                        # print(f'Преподаватель пришел раньше: {tutor_start} - {tutor_end}')
-                        # print(f'Время преподавателя на занятии: {lesson_start} - {tutor_end}\n')
                         tutor_lesson_time.append(lesson_start)
                         tutor_lesson_time.append(tutor_end)
                     elif lesson_start <= tutor_start < lesson_end and tutor_end > lesson_end:
-                        # print(f'Преподаватель задержадся после занятий: {tutor_start} - {tutor_end}')
-                        # print(f'Время преподавателя на занятии: {tutor_start} - {lesson_end}\n')
                         tutor_lesson_time.append(tutor_start)
                         tutor_lesson_time.append(lesson_end)
 
