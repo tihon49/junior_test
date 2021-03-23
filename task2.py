@@ -16,8 +16,6 @@ Task 2:
 
 import requests
 from bs4 import BeautifulSoup as bs
-from collections import Counter
-from pprint import pprint
 
 
 URL = 'https://ru.wikipedia.org/w/index.php?title=Категория:Животные_по_алфавиту&from=а'
